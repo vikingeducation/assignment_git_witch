@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/tim5046/assignment_git_witch#readme",
   "dependencies": {
+    "github": "^9.2.0",
     "jasmine-node": "^1.14.5"
   }
 }

@@ -1,20 +1,26 @@
-// const GithubWrapper = require('./GithubWrapper');
+const GithubWrapper = require('./GithubWrapper');
+const defaultWrapper = new GithubWrapper();
 
 class CommandRunner {
   constructor(github){
-    this.github = github;
-    // this.github = github || GithubWrapper;
+    this.github = github || defaultWrapper;
   }
 
   run(input){
-    // run takes some input and queries Github for a result
-    // this should return a promise
     return new Promise((resolve, reject) => {
+      let username = input.username;
       let output = input;
-      this.github.getRepos(input).then((result) => {
-        output.results = result;
-        resolve(output)
-      })
+      if (input.subject === "repos") {
+        this.github.getRepos({username}).then((result) => {
+          output.results = input.query === "details" ? result : result.length
+          resolve(output)
+        })        
+      } else {
+        this.github.getStarredRepos({username}).then((result) => {
+          output.results = input.query === "details" ? result : result.length
+          resolve(output)
+        })          
+      }
     })
   }
 }

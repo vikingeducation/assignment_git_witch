@@ -33,7 +33,7 @@ describe("Command Runner", () => {
       query: "count"
     }
     this.commandRunner.run(testInput).then((response) => {
-      expect(this.github.getRepos).toHaveBeenCalledWith(testInput);
+      expect(this.github.getRepos).toHaveBeenCalledWith({username: testInput.username});
       expect(response).toEqual({
         username: "griselda",
         subject: "repos",
@@ -51,7 +51,7 @@ describe("Command Runner", () => {
       query: "details"
     }
     this.commandRunner.run(testInput).then((response) => {
-      expect(this.github.getRepos).toHaveBeenCalledWith(testInput);
+      expect(this.github.getRepos).toHaveBeenCalledWith({username: testInput.username});
       expect(response).toEqual({
         username: "griselda",
         subject: "repos",
@@ -69,12 +69,12 @@ describe("Command Runner", () => {
       query: "count"
     }
     this.commandRunner.run(testInput).then((response) => {
-      expect(this.github.getStarredRepos).toHaveBeenCalledWith(testInput);
+      expect(this.github.getStarredRepos).toHaveBeenCalledWith({username: testInput.username});
       expect(response).toEqual({
         username: "griselda",
         subject: "starred repos",
         query: "count",
-        results: this.sampleGitResponse.length
+        results: this.sampleStarredResponse.length
       });
       done();
     })
@@ -87,12 +87,12 @@ describe("Command Runner", () => {
       query: "details"
     }
     this.commandRunner.run(testInput).then((response) => {
-      expect(this.github.getStarredRepos).toHaveBeenCalledWith(testInput);
+      expect(this.github.getStarredRepos).toHaveBeenCalledWith({username: testInput.username});
       expect(response).toEqual({
         username: "griselda",
         subject: "starred repos",
         query: "details",
-        results: this.sampleGitResponse
+        results: this.sampleStarredResponse
       });
       done();
     })
