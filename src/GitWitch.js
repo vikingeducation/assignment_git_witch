@@ -1,4 +1,4 @@
-const questionParser = require("../src/QuestionParser");
+// const questionParser = require("../src/QuestionParser");
 
 class GitWitch {
   constructor({ parser, runner, formatter }) {
@@ -8,11 +8,14 @@ class GitWitch {
   }
 
   process(input) {
-    let command = this.parser.parse(input);
+    return new Promise( (resolve, reject) => {
+      let command = this.parser.parse(input);
 
-    let rawResponse = this.runner.run(command);
+      this.runner.run(command).then((rawResponse) => {
+        resolve(this.formatter.format(rawResponse));
+      });
+    });
 
-    let formattedResponse = this.formatter.format(rawResponse);
   }
 }
 
