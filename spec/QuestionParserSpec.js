@@ -34,13 +34,13 @@ describe("QuestionParser", () => {
   });
 
   describe("parsing queries", () => {
-    it("parses details queries", () => {
+    xit("parses details queries", () => {
       const question = "what repos does griselda have?";
       const command = this.parser.parse(question);
       expect(command.query).toEqual("details");
     });
 
-    it("parses count queries", () => {
+    xit("parses count queries", () => {
       const question = "how many repos does brunhilde55 have?";
       const command = this.parser.parse(question);
       expect(command.query).toEqual("count");
