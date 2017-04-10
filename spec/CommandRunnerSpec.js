@@ -4,7 +4,7 @@ describe("CommandRunner", () => {
   beforeEach(() => {
     this.github = {
       repos: () => {},
-      stars: () => {},
+      stars: () => {}
     };
 
     this.repoList = "repo list";
@@ -23,7 +23,7 @@ describe("CommandRunner", () => {
     };
     this.commandRunner.run(command).then(response => {
       expect(this.github.repos).toHaveBeenCalledWith(command.username);
-      expect(response).toEqual('repo list');
+      expect(response).toEqual("repo list");
       done();
     });
   });
@@ -35,7 +35,7 @@ describe("CommandRunner", () => {
     };
     this.commandRunner.run(command).then(response => {
       expect(this.github.stars).toHaveBeenCalledWith(command.username);
-      expect(response).toEqual('star list');
+      expect(response).toEqual("star list");
       done();
     });
   });

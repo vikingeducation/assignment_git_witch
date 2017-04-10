@@ -3,14 +3,18 @@ class CommandRunner {
     this.github = github;
   }
 
-  run(command) {
-    const { username, subject } = command;
-    if (subject === 'repos') {
-      return this.github.repos(username);
-    } else if (subject === 'stars') {
-      return this.github.stars(username);
+  async run(command) {
+    const { username, subject, query } = command;
+    let results;
+    if (subject === "repos") {
+      results = await this.github.repos(username);
+    } else if (subject === "stars") {
+      results = await this.github.stars(username);
     }
+    parseQuery(command, results);
   }
+
+  async parseQuery(command, results) {}
 }
 
 module.exports = CommandRunner;
