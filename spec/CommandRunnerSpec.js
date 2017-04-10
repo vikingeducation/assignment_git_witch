@@ -1,36 +1,43 @@
 const CommandRunner = require('../src/CommandRunner');
 
 describe("Command Runner", () => {
+  let testInput;
+
   beforeEach(() => {
-    this.github = {
-      getRepos(output) {
-        let sampleResult = [
-          {name: 'repo name' description: 'repo desc'},
-          {name: 'repo two' description: 'repo desc two'}
-        ]
-        return (Promise.resolve(sampleResult));
-      }
-    };
+    this.github = { getRepos() {} };
+
+    this.sampleGitResponse = [
+          {name: 'repo name', description: 'repo desc'},
+          {name: 'repo two', description: 'repo desc two'}
+    ];
+
+    spyOn(this.github, "getRepos").andReturn(Promise.resolve(this.sampleGitResponse));
+
     this.commandRunner = new CommandRunner();
 
-  });
-
-  it("queries Github for a user's repo count", done => {
-    this.commandRunner.run()
-
-  });
-
-  xit("queries Github for a user's repo list", done => {
+    testInput = {
+      username: "griselda",
+      subject: "repos",
+      query: "count"
+    }
 
   });
 
-  xit("queries Github for a user's starred repo count", done => {
+  it("returns an object with the info from Github", done => {
+    this.commandRunner.run(testInput).then((response) => {
+      expect(this.github.getRepos).toHaveBeenCalledWith(testInput);
+      expect(response).toEqual({
+        username: "griselda",
+        subject: "repos",
+        query: "count",
+        results: this.sampleGitResponse
+      })
+    })
+
+
 
   });
 
-  xit("queries Github for a user's starred repo list", done => {
-
-  });
 
 });
 
