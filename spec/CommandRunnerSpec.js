@@ -7,8 +7,12 @@ describe("CommandRunner", () => {
       stars: () => {}
     };
 
-    this.repoList = "repo list";
-    this.starList = "starred list";
+    this.repoList = {
+      data: "repo list"
+    };
+    this.starList = {
+      data: "starred list"
+    };
 
     spyOn(this.github, "repos").andReturn(Promise.resolve(this.repoList));
     spyOn(this.github, "stars").andReturn(Promise.resolve(this.starList));

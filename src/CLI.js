@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const GitWitch = require("./GitWitch");
 
 const gitWitch = new GitWitch();

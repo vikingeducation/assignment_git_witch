@@ -5,8 +5,8 @@ describe("ResponseFormatter", () => {
     this.responseFormatter = new ResponseFormatter();
   });
 
-  it("returns a string with the listed repos when subject is 'repo' and query is 'details'", done => {
-    let responseObj = Promise.resolve({
+  it("returns a string with the listed repos when subject is 'repos' and query is 'details'", () => {
+    let responseObj = {
       username: "griselda",
       subject: "repos",
       query: "details",
@@ -20,36 +20,54 @@ describe("ResponseFormatter", () => {
           description: "desc2"
         }
       ]
-    });
-    this.responseFormatter.format(responseObj).then(output => {
-      expect(output).toEqual(
-        "griselda's repos:\n" + "name1 - desc1\n" + "name2 - desc2\n"
-      );
-      done();
-    });
+    };
+    expect(this.responseFormatter.format(responseObj)).toEqual(
+      "griselda's repos:\n" + "name1 - desc1\n" + "name2 - desc2\n"
+    );
   });
 
-  it("returns a string with the listed repos when subject is 'repo' and query is 'count'", done => {
-    let responseObj = Promise.resolve({
+  it("returns a string with the number of repos when subject is 'repos' and query is 'count'", () => {
+    let responseObj = {
       username: "griselda",
       subject: "repos",
       query: "count",
-      result: { "data":
-        [
-          {
-            "name": "name1",
-            "description": "desc1"
-          },
-          {
-            "name": "name2",
-            "description": "desc2"
-          }
-        ]
-      }
-    });
-    this.responseFormatter.format(responseObj).then(output => {
-      expect(output).toEqual("the user griselda has 2 repos");
-      done();
-    });
+      result: 2
+    };
+    expect(this.responseFormatter.format(responseObj)).toEqual(
+      "the user griselda has 2 repos"
+    );
+  });
+
+  it("returns a string with the listed starred repos when subject is 'stars' and query is 'details'", () => {
+    let responseObj = {
+      username: "griselda",
+      subject: "stars",
+      query: "details",
+      result: [
+        {
+          name: "name1",
+          description: "desc1"
+        },
+        {
+          name: "name2",
+          description: "desc2"
+        }
+      ]
+    };
+    expect(this.responseFormatter.format(responseObj)).toEqual(
+      "griselda's stars:\n" + "name1 - desc1\n" + "name2 - desc2\n"
+    );
+  });
+
+  it("returns a string with the number of repos when subject is 'stars' and query is 'count'", () => {
+    let responseObj = {
+      username: "griselda",
+      subject: "stars",
+      query: "count",
+      result: 2
+    };
+    expect(this.responseFormatter.format(responseObj)).toEqual(
+      "the user griselda has 2 stars"
+    );
   });
 });
