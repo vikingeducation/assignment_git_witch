@@ -9,7 +9,7 @@ class ResponseFormatter {
       let output = '';
       output += `# ${input.username}\'s ${input.subject}\n`
       input.results.forEach( (repo) => {
-        output += `# ${repo.name} - ${repo.description}`
+        output += `# ${repo.name} - ${repo.description}\n`
       })
       return output;
     }
