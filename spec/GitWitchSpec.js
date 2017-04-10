@@ -1,0 +1,32 @@
+const GitWitch = require("../src/GitWitch");
+
+describe("GitWitch", () => {
+  beforeEach(() => {
+    this.parser = { parse() {} };
+    this.runner = { run() {} };
+    this.formatter = { format() {} };
+
+    this.command = "command";
+    this.response = "response";
+    this.output = "output";
+
+    spyOn(this.parser, "parse").andReturn(this.command);
+    spyOn(this.runner, "run").andReturn(this.response);
+    spyOn(this.formatter, "format").andReturn(this.output);
+
+    this.witch = new GitWitch({
+      parser: this.parser,
+      runner: this.runner,
+      formatter: this.formatter
+    });
+  });
+
+  it("processes a question and returns a formatted response", () => {
+    const input = "how many repos does griselda have?";
+    let output = this.witch.process(input);
+    expect(this.parser.parse).toHaveBeenCalledWith(input);
+    expect(this.runner.run).toHaveBeenCalledWith(this.command);
+    expect(this.formatter.format).toHaveBeenCalledWith(this.response);
+    expect(output).toEqual(this.output);
+  });
+});
