@@ -1,23 +1,33 @@
 var parse = function(inputArr) {
-  console.log("inside parse", typeof inputArr);
 
   let inputLength = inputArr.length;
-  let username = inputArr.split(" ").reverse[1];
-  console.log("username ", username);
+  let username = inputArr.reverse()[1];
+  let output = {};
+  
+  // console.log("username ", username);
 
   switch (inputLength) {
     case 5: //"what repos does griselda have?"
-      // username = inputArr[3];
-      // console.log(username);
-      break;
+      output = {
+        'username': username,
+        'subject': "repos",
+        'query': "details"
+        }
+      return output;
     case 6: //"how many repos does griselda have?"
-      // username = inputArr[4];
-      // console.log(username);
-      break;
+      output = {
+        'username': username,
+        'subject': "repos",
+        'query': "count"
+        }
+      return output;
     case 7: //"how many starred repos does griselda have?"
-      // username = inputArr[5];
-      // console.log(username);
-      break;
+      output = {
+        'username': username,
+        'subject': "stars",
+        'query': "count"
+        }
+      return output;
     default:
   }
 };
