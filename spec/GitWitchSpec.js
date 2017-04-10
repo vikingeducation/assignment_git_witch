@@ -11,7 +11,7 @@ describe("GitWitch", () => {
     this.output = "output";
 
     spyOn(this.parser, "parse").andReturn(this.command);
-    spyOn(this.runner, "run").andReturn(this.response);
+    spyOn(this.runner, "run").andReturn(Promise.resolve(this.response));
     spyOn(this.formatter, "format").andReturn(this.output);
 
     this.witch = new GitWitch({
@@ -21,12 +21,14 @@ describe("GitWitch", () => {
     });
   });
 
-  it("processes a question and returns a formatted response", () => {
+  it("processes a question and returns a formatted response", done => {
     const input = "how many repos does griselda have?";
-    let output = this.witch.process(input);
-    expect(this.parser.parse).toHaveBeenCalledWith(input);
-    expect(this.runner.run).toHaveBeenCalledWith(this.command);
-    expect(this.formatter.format).toHaveBeenCalledWith(this.response);
-    expect(output).toEqual(this.output);
+    this.witch.process(input).then(output => {
+      expect(this.parser.parse).toHaveBeenCalledWith(input);
+      expect(this.runner.run).toHaveBeenCalledWith(this.command);
+      expect(this.formatter.format).toHaveBeenCalledWith(this.response);
+      expect(output).toEqual(this.output);
+      done();
+    });
   });
 });
