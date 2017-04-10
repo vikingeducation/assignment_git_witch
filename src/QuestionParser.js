@@ -1,45 +1,38 @@
 class QuestionParser {
-  let parse = function(question) {
-    
+  constructor() {
+    this.output = {};
+  }
+  parse(question) {
+    let inputArr = question.split(" ");
+    //let inputLength = inputArr.length;
+    let keyWord = inputArr[1];
+    let username = inputArr.reverse()[1];
+
+    switch (keyWord) {
+      case "repos": //"what repos does griselda have?"
+        this.output = {
+          username: username,
+          subject: "repos",
+          query: "details"
+        };
+        return this.output;
+      case "starred": //"what starred repos does griselda have?"
+        this.output = {
+          username: username,
+          subject: "starred repos",
+          query: "count"
+        };
+        return this.output;
+      case "many": //"how many repos does brunhilde55 have?"
+        this.output = {
+          username: username,
+          subject: "repos",
+          query: "count"
+        };
+        return this.output;
+      default:
+    }
   }
 }
 
-
-
-
-
-var parse = function(inputArr) {
-
-  let inputLength = inputArr.length;
-  let username = inputArr.reverse()[1];
-  let output = {};
-  
-  // console.log("username ", username);
-
-  switch (inputLength) {
-    case 5: //"what repos does griselda have?"
-      output = {
-        'username': username,
-        'subject': "repos",
-        'query': "details"
-        }
-      return output;
-    case 6: //"how many repos does griselda have?"
-      output = {
-        'username': username,
-        'subject': "repos",
-        'query': "count"
-        }
-      return output;
-    case 7: //"how many starred repos does griselda have?"
-      output = {
-        'username': username,
-        'subject': "stars",
-        'query': "count"
-        }
-      return output;
-    default:
-  }
-};
-
-module.exports = { parse };
+module.exports = QuestionParser;
