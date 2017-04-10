@@ -18,3 +18,5 @@ class Github {
     githubApi.activity.getStarredReposForUser({ username });
   }
 }
+
+module.exports = Github;
