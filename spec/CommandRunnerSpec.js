@@ -2,23 +2,42 @@ const CommandRunner = require("../src/CommandRunner");
 
 describe("CommandRunner", () => {
   beforeEach(() => {
-    let github = {
-      repos: () => {
-        return Promise.resolve('repo list');
-      },
-      stars: () => {
-        return Promise.resolve('starred list');
-      }
+    this.github = {
+      repos: () => {},
+      stars: () => {},
+      repoCount: () => {},
+      starCount: () => {}
     };
-    this.commandRunner = new CommandRunner(github);
+
+    this.repoList = "repo list";
+    this.starList = "star list";
+
+    spyOn(this.github, "repos").andReturn(Promise.resolve(this.repoList));
+    spyOn(this.github, "stars").andReturn(Promise.resolve(this.starList));
+    this.commandRunner = new CommandRunner(this.github);
   });
 
-  it("returns a list of repos when query is 'details' and subject is 'repos'", done => {
+  it("returns a list of repos when subject is 'repos'", done => {
     let command = {
-      username: 'griselda',
-      query: 'details',
-      subject: 'repos'
+      username: "griselda",
+      subject: "repos"
     };
-    this.commandRunner.run(command)
+    this.commandRunner.run(command).then(response => {
+      expect(this.github.repos).toHaveBeenCalledWith(command.username);
+      expect(response).toEqual('repo list');
+      done();
+    });
+  });
+
+  it("returns a list of starred repos when subject is 'stars'", done => {
+    let command = {
+      username: "griselda",
+      subject: "stars"
+    };
+    this.commandRunner.run(command).then(response => {
+      expect(this.github.stars).toHaveBeenCalledWith(command.username);
+      expect(response).toEqual('star list');
+      done();
+    });
   });
 });

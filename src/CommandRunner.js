@@ -4,12 +4,12 @@ class CommandRunner {
   }
 
   run(command) {
-    if (command.subject === 'repos') {
-      if (command.query === 'details') {
-        return this.github.repos(command.username);
-      } else {
-        return this.github.
-      }
+    const { username, subject } = command;
+    if (subject === 'repos') {
+      return this.github.repos(username);
+    } else if (subject === 'stars') {
+      return this.github.stars(username);
+    }
   }
 }
 
