@@ -1,43 +1,102 @@
 const CommandRunner = require('../src/CommandRunner');
 
 describe("Command Runner", () => {
-  let testInput;
-
   beforeEach(() => {
-    this.github = { getRepos() {} };
+    this.github = {
+      getRepos() {},
+      getStarredRepos() {}
+    };
 
     this.sampleGitResponse = [
           {name: 'repo name', description: 'repo desc'},
           {name: 'repo two', description: 'repo desc two'}
     ];
 
+    this.sampleStarredResponse = [
+          {name: 'starred repo name', description: 'repo desc'},
+          {name: 'starred repo two', description: 'repo desc two'},
+          {name: 'starredrepo two', description: 'repo desc two'}
+    ];
+
     spyOn(this.github, "getRepos").andReturn(Promise.resolve(this.sampleGitResponse));
 
-    this.commandRunner = new CommandRunner();
+    spyOn(this.github, "getStarredRepos").andReturn(Promise.resolve(this.sampleStarredResponse));
 
-    testInput = {
+    this.commandRunner = new CommandRunner(this.github);
+
+  });
+
+  it("returns a list of repo details", done => {
+    let testInput = {
       username: "griselda",
       subject: "repos",
       query: "count"
     }
-
-  });
-
-  it("returns an object with the info from Github", done => {
     this.commandRunner.run(testInput).then((response) => {
       expect(this.github.getRepos).toHaveBeenCalledWith(testInput);
       expect(response).toEqual({
         username: "griselda",
         subject: "repos",
         query: "count",
-        results: this.sampleGitResponse
-      })
+        results: this.sampleGitResponse.length
+      });
+      done();
     })
-
-
-
   });
 
+  it("returns a list of starred repo details", done => {
+    let testInput = {
+      username: "griselda",
+      subject: "repos",
+      query: "details"
+    }
+    this.commandRunner.run(testInput).then((response) => {
+      expect(this.github.getRepos).toHaveBeenCalledWith(testInput);
+      expect(response).toEqual({
+        username: "griselda",
+        subject: "repos",
+        query: "details",
+        results: this.sampleGitResponse
+      });
+      done();
+    })
+  });
+
+  it("returns a count of repos", done => {
+    let testInput = {
+      username: "griselda",
+      subject: "starred repos",
+      query: "count"
+    }
+    this.commandRunner.run(testInput).then((response) => {
+      expect(this.github.getStarredRepos).toHaveBeenCalledWith(testInput);
+      expect(response).toEqual({
+        username: "griselda",
+        subject: "starred repos",
+        query: "count",
+        results: this.sampleGitResponse.length
+      });
+      done();
+    })
+  });
+
+  it("returns a count of starred repos", done => {
+    let testInput = {
+      username: "griselda",
+      subject: "starred repos",
+      query: "details"
+    }
+    this.commandRunner.run(testInput).then((response) => {
+      expect(this.github.getStarredRepos).toHaveBeenCalledWith(testInput);
+      expect(response).toEqual({
+        username: "griselda",
+        subject: "starred repos",
+        query: "details",
+        results: this.sampleGitResponse
+      });
+      done();
+    })
+  });
 
 });
 
