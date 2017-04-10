@@ -4,7 +4,7 @@ const token = process.env.GITHUB_API_KEY;
 
 class Github {
   constructor() {
-    github.authenticate({
+    githubApi.authenticate({
       type: "token",
       token: token
     });

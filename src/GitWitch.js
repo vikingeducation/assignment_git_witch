@@ -4,15 +4,15 @@ const ResponseFormatter = require("./ResponseFormatter");
 
 class GitWitch {
   constructor(
-    {
-      parser = new QuestionParser(),
-      runner = new CommandRunner(),
-      formatter = new ResponseFormatter()
+    defaultChoice = {
+      parser: new QuestionParser(),
+      runner: new CommandRunner(),
+      formatter: new ResponseFormatter()
     }
   ) {
-    this.parser = parser;
-    this.runner = runner;
-    this.formatter = formatter;
+    this.parser = defaultChoice.parser;
+    this.runner = defaultChoice.runner;
+    this.formatter = defaultChoice.formatter;
   }
 
   async process(string) {

@@ -1,4 +1,4 @@
-const Github = require('./Github');
+const Github = require("./Github");
 
 class CommandRunner {
   constructor(githubModule = new Github()) {
@@ -17,9 +17,10 @@ class CommandRunner {
   }
 
   async attachQueryResults(command, results) {
-    if (command.query === 'details') {
+    console.log("RESULTS", results);
+    if (command.query === "details") {
       command.result = results;
-    } else if (command.query === 'count') {
+    } else if (command.query === "count") {
       command.result = results.length;
     }
     return command;

@@ -1,5 +1,6 @@
 class ResponseFormatter {
   format(responseObj) {
+    console.log("PROMISE", responseObj);
     return responseObj.then(response => {
       let output = "";
       if (response.query === "details") {
@@ -10,7 +11,10 @@ class ResponseFormatter {
       } else if (response.query === "count") {
         output += `the user ${response.username} has ${response.result} ${response.subject}`;
       }
-      return output;
+      console.log(output);
+      return new Promise(resolve => {
+        resolve(output);
+      });
     });
   }
 }
