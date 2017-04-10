@@ -1,6 +1,6 @@
 const QuestionParser = require("../src/QuestionParser");
 
-xdescribe("QuestionParser", () => {
+describe("QuestionParser", () => {
   beforeEach(() => {
     this.parser = new QuestionParser();
   });

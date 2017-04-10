@@ -1,22 +1,22 @@
 const CommandRunner = require("../src/CommandRunner");
 
-describe("CommandRunner", () => {
-  parsedObj = {
-    'username': "griselda",
-    'subject': "repos",
-    'query': "details",
-    'repos': [ {'name': 'name', 'description': 'description'}];
-  }
+xdescribe("CommandRunner", () => {
   beforeEach(() => {
-    this.runner = new CommandRunner(parsedObj);
+    const githubObj = [{ name: "name", description: "description" }];
+    this.runner = new CommandRunner(githubObj);
+
+    const commandObj = {
+      username: "griselda",
+      subject: "repos",
+      query: "details"
+    };
   });
 
   describe("appends to object", () => {
     it("append array of objects", () => {
-      const reposArr = [ {'name': 'name', 'description': 'description'}];
-      let commandObj = this.runner.run(reposArr);
-      expect(commandObj.repos.[1].name).toEqual('name')
+      //let outputObj = this.runner.run(commandObj);
+      let outputObj = this.runner.run(commandObj);
+      expect(outputObj.repos[0].name).toEqual("name");
     });
-
   });
 });

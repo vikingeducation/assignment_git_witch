@@ -1,6 +1,6 @@
 const GitWitch = require("../src/GitWitch");
 
-xdescribe("GitWitch", () => {
+describe("GitWitch", () => {
   beforeEach(() => {
     this.parser = { parse() {} };
     //this.parser.parse = function() {};
@@ -23,13 +23,16 @@ xdescribe("GitWitch", () => {
   });
 
   it("processes a question and returns a formatted response", done => {
-    const input = "how many repos does griselda have?";
-    this.witch.process(input).then(output => {
-      expect(this.parser.parse).toHaveBeenCalledWith(input);
-      expect(this.runner.run).toHaveBeenCalledWith(this.command);
-      expect(this.formatter.format).toHaveBeenCalledWith(this.response);
-      expect(output).toEqual(this.output);
-      done();
-    }).catch(err => console.log(err));
+    const input = "blah blah";
+    this.witch
+      .process(input)
+      .then(output => {
+        expect(this.parser.parse).toHaveBeenCalledWith(input);
+        expect(this.runner.run).toHaveBeenCalledWith(this.command);
+        expect(this.formatter.format).toHaveBeenCalledWith(this.response);
+        expect(output).toEqual(this.output);
+        done();
+      })
+      .catch(err => console.log(err));
   });
 });

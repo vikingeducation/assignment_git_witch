@@ -1,15 +1,13 @@
-
-
 class CommandRunner {
-  constructor(parsedObj) {
-    this.parsedObj = parsedObj;
+  constructor(githubObj) {
+    this.githubObj = githubObj;
+    // dependency injection
   }
 
-  run(appendObj) {
-    this.parsedObj['repos'] = appendObj;
-    return this.parsedObj;
+  run(commandObj) {
+    this.commandObj["repos"] = githubObj;
+    return this.commandObj;
   }
 }
-
 
 module.exports = CommandRunner;
