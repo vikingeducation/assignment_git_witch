@@ -1,6 +1,8 @@
-const GitWitch = require('./GitWitch');
+const GitWitch = require("./GitWitch");
 
 const gitWitch = new GitWitch();
 
 const command = process.argv.slice(2).join(" ");
-gitWitch.process(command).then(output => console.log(output));
+gitWitch.process(command).then(output => console.log(output)).catch(err => {
+  console.log(err);
+});
