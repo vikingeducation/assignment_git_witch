@@ -14,12 +14,12 @@ class CommandRunner {
         this.github.getRepos({username}).then((result) => {
           output.results = input.query === "details" ? result : result.length
           resolve(output)
-        })        
+        })
       } else {
         this.github.getStarredRepos({username}).then((result) => {
           output.results = input.query === "details" ? result : result.length
           resolve(output)
-        })          
+        })
       }
     })
   }
