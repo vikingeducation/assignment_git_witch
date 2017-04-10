@@ -1,13 +1,13 @@
 const defaultParser = require('./QuestionParser')
 const defaultRunner = require('./CommandRunner')
-// const formatter = require('./ResponseFormatter')
+const defaultFormatter = require('./ResponseFormatter')
 
 class GitWitch {
 
   constructor({parser, runner, formatter} = {}){
-    this.parser = parser || defaultParser;
-    this.runner = runner || defaultRunner;
-    this.formatter = formatter;
+    this.parser = parser || new defaultParser();
+    this.runner = runner || new defaultRunner();
+    this.formatter = formatter || new defaultFormatter();
   }
 
   process(input) {
@@ -19,9 +19,7 @@ class GitWitch {
           resolve(output);
         })
     })
-
   }
-
 }
 
 module.exports = GitWitch;

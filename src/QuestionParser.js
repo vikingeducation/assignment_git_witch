@@ -1,6 +1,5 @@
 
 class QuestionParser {
-
   parse(input) {
     let userMatch = /does\s+(\w*)\s+have/;
     let username = userMatch.exec(input)[1];
