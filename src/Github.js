@@ -11,11 +11,11 @@ class Github {
   }
 
   repos(username) {
-    githubApi.repos.getForUser({ username });
+    return githubApi.repos.getForUser({ username });
   }
 
   stars(username) {
-    githubApi.activity.getStarredReposForUser({ username });
+    return githubApi.activity.getStarredReposForUser({ username });
   }
 }
 

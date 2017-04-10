@@ -16,12 +16,11 @@ class CommandRunner {
     return this.attachQueryResults(command, results);
   }
 
-  async attachQueryResults(command, results) {
-    console.log("RESULTS", results);
+  attachQueryResults(command, results) {
     if (command.query === "details") {
-      command.result = results;
+      command.result = results.data;
     } else if (command.query === "count") {
-      command.result = results.length;
+      command.result = results.data.length;
     }
     return command;
   }

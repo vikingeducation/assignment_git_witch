@@ -34,16 +34,18 @@ describe("ResponseFormatter", () => {
       username: "griselda",
       subject: "repos",
       query: "count",
-      result: [
-        {
-          name: "name1",
-          description: "desc1"
-        },
-        {
-          name: "name2",
-          description: "desc2"
-        }
-      ]
+      result: { "data":
+        [
+          {
+            "name": "name1",
+            "description": "desc1"
+          },
+          {
+            "name": "name2",
+            "description": "desc2"
+          }
+        ]
+      }
     });
     this.responseFormatter.format(responseObj).then(output => {
       expect(output).toEqual("the user griselda has 2 repos");
