@@ -1,10 +1,10 @@
 class QuestionParser {
-  parse(command) {
+  parse(string) {
     let username, subject, query;
-    query = (command.slice(0, 4) === 'what') ? 'details' : 'count';
-    let splitCmd = command.split(" ");
+    query = string.slice(0, 4) === "what" ? "details" : "count";
+    let splitCmd = string.split(" ");
     username = splitCmd[splitCmd.length - 2];
-    subject = splitCmd.includes('starred') ? 'stars' : 'repos';
+    subject = splitCmd.includes("starred") ? "stars" : "repos";
 
     return { username, subject, query };
   }
