@@ -6,12 +6,11 @@ describe("Github Wrapper", () => {
   beforeEach(() => {
     github = new GithubWrapper();
     repoKeys = ['name', 'description'];
-    username = 'tim5046';
+    username = 'eriktrautman';
   });
 
   it("should query for repos and return the proper keys", done => {
     github.getRepos({username}).then((result) => {
-      result = result.data;
       let firstRepo = result[0];
       expect(firstRepo.name).toBeDefined();
       expect(firstRepo.description).toBeDefined();
@@ -23,14 +22,21 @@ describe("Github Wrapper", () => {
 
   it("should query for starred repos and return the proper keys", done => {
     github.getStarredRepos({username}).then((result) => {
-      result = result.data;
       let firstRepo = result[0];
       expect(firstRepo.name).toBeDefined();
       expect(firstRepo.description).toBeDefined();
-      console.log("\n\n\n\n\n\nRESULT:",result)
       expect(Object.keys(firstRepo).length).toEqual(2);
       done();
     })
-
   });
+
+  it("should query for starred repos and return the proper keys", done => {
+    github.getStarredRepos({username: "tim5046"}).then((result) => {
+      expect(result).toEqual([]);
+      done();
+    })
+  });  
+
+
+
 });

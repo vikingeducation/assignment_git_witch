@@ -16,11 +16,29 @@ class GithubWrapper {
   }
 
   getRepos(obj){
-   return this.github.repos.getForUser(obj)
+    return new Promise((resolve, reject) => {
+      this.github.repos.getForUser(obj).then((data) => {
+        let repos = data.data;
+        repos = repos.map((repo) => {
+          return {name: repo.name, description: repo.description}
+        })
+        resolve(repos);
+      })
+    })
+   
   }
 
   getStarredRepos(obj){
-    return this.github.activity.getStarredReposForUser(obj);
+    return new Promise((resolve, reject) => {
+      this.github.activity.getStarredReposForUser(obj).then((data) => {
+        let repos = data.data;
+        repos = repos.map((repo) => {
+          return {name: repo.name, description: repo.description}
+        })
+        resolve(repos);
+      })
+    })
+
   }
 }
 
@@ -28,10 +46,9 @@ module.exports = GithubWrapper;
 
 
 // let gh = new GithubWrapper();
+// let username = "eriktrautman";
 
-// let username = "nicoasp";
-
-// gh.getRepos({username}).then((repoList) => {
-//   console.log(repoList);
+// gh.getStarredRepos({username}).then((repoList) => {
+//  console.log(repoList);
 // })
 
