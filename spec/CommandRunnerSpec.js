@@ -14,6 +14,7 @@ describe("CommandRunner", () => {
 
     spyOn(this.github, "repos").andReturn(Promise.resolve(this.repoList));
     spyOn(this.github, "stars").andReturn(Promise.resolve(this.starList));
+    
     this.commandRunner = new CommandRunner(this.github);
   });
 
