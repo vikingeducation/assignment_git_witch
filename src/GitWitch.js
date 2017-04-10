@@ -1,23 +1,19 @@
-
+const questionParser = require("../src/QuestionParser");
 
 class GitWitch {
-  constructor( {parser, runner, formatter} ) {
+  constructor({ parser, runner, formatter }) {
     this.parser = parser;
     this.runner = runner;
     this.formatter = formatter;
   }
 
-
-
   process(input) {
-    this.parser.parse(){
+    let command = this.parser.parse(input);
 
-    }
-    this.runner.run() {
+    let rawResponse = this.runner.run(command);
 
-    }
-    this.formatter.format() {
-      
-    }
+    let formattedResponse = this.formatter.format(rawResponse);
   }
 }
+
+module.exports = GitWitch;
