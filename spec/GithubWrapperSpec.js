@@ -16,8 +16,9 @@ describe("Github Wrapper", () => {
       expect(firstRepo.name).toBeDefined();
       expect(firstRepo.description).toBeDefined();
       expect(Object.keys(firstRepo).length).toEqual(2);
+      done();
     })
-    done();
+
   });
 
   it("should query for starred repos and return the proper keys", done => {
@@ -26,8 +27,10 @@ describe("Github Wrapper", () => {
       let firstRepo = result[0];
       expect(firstRepo.name).toBeDefined();
       expect(firstRepo.description).toBeDefined();
+      console.log("\n\n\n\n\n\nRESULT:",result)
       expect(Object.keys(firstRepo).length).toEqual(2);
+      done();
     })
-    done();
+
   });
 });
