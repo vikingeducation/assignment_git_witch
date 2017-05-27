@@ -13,7 +13,12 @@ class GitHub {
   }
 
   getStarredRepos() {
-    return [];
+    return [
+      {
+        name: "Good Repo",
+        description: "This is a really good repo"
+      }
+    ];
   }
 }
 
