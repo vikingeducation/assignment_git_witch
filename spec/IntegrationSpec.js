@@ -1,10 +1,9 @@
 const exec = require("child_process").exec;
 
 // When you're ready to test your entire application. Change 'xdescribe` to 'describe'.
-xdescribe("An Integration Test", () => {
+describe("An Integration Test", () => {
   it("works for details", done => {
-    const expectedOutput = `
-griselde's public repos
+    const expectedOutput = `griselde's public repos
 Code-Coven - A version control system for weird sisters
 Eye-Of-Newt - EON is a new frontend framework written in pure spaghetti code.
 `;
