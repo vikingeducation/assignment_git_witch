@@ -8,9 +8,6 @@ class GitWitch {
     Promise.resolve(run(command)).then(response => {
       format(response);
     });
-    // run(command).then(
-    //   // something
-    // )
   }
 }
 
