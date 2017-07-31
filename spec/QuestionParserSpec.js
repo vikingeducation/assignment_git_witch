@@ -1,4 +1,4 @@
-const QuestionParser = require("../src/QuestionParser");
+const QuestionParser = require("../lib/questionParser");
 
 describe("QuestionParser", () => {
   beforeEach(() => {
