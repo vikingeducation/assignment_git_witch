@@ -1,9 +1,12 @@
 class CommandRunner {
-  run() {
-    return new Promise((resolve, reject) => {
-      resolve("something");
-    });
+  constructor(api) {
+    this.api = api;
+  }
+  run(command) {
+    // return new Promise((resolve, reject) => {
+    //   resolve("something");
+    // });
   }
 }
 
-module.exports = { run };
+module.exports = CommandRunner;

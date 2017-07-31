@@ -1,6 +1,8 @@
 class ResponseFormatter() {
   format(){
-    
+
+
+
   }
 }
 
