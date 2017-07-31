@@ -1,16 +1,17 @@
-const { } = require()
-const { } = require()
-const
+const { parse } = require("./QuestionParser.js");
+const { run } = require("./CommandRunner.js");
+const { format } = require("./ResponseFormatter.js");
 
 class GitWitch {
-  constructor() {
-        process() {
-
-        }
+  process(input) {
+    let command = parse(input);
+    Promise.resolve(run(command)).then(response => {
+      format(response);
+    });
+    // run(command).then(
+    //   // something
+    // )
   }
-  // parser: this.parser,
-  // runner: this.runner,
-  // formatter: this.formatter
 }
 
 module.exports = GitWitch;
