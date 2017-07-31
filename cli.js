@@ -4,4 +4,4 @@ const Command = require('./lib/commandRunner/command');
 
 let qp = new QuestionParser();
 let cr = new CommandRunner();
-cr.run(qp.parse('what repos does griselda have'));
+cr.run(qp.parse('what repos does griselda have')).then(console.log);
