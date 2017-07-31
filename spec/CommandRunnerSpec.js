@@ -18,7 +18,7 @@ describe("CommandRunner", () => {
 
     let commandObj = {
       username: "Rambo",
-      query: "how",
+      query: "count",
       subject: "repos"
     }
     

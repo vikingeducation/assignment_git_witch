@@ -1,41 +1,58 @@
 require('dotenv').config();
-const Github = require('github');
+const Github = require('github-api');
+// var Promise = require("bluebird");
+// var listStarredRepos = Promise.promisify(Github.listStarredRepos);
+
 
 const github = new Github({
-    protocol: "https",
-    host: "api.github.com", // should be api.github.com for GitHub
-    pathPrefix: "/api/v3", // for some GHEs; none for GitHub
-    headers: {
-        "user-agent": "My-Cool-GitHub-App" // GitHub is happy with a unique user agent
-    },
-    Promise: require('bluebird'),
-    followRedirects: false, // default: true; there's currently an issue with non-get redirects, so allow ability to disable follow-redirects
-    timeout: 5000,
-    username: "Alex-Willenbrink"
+   token: process.env.GITHUB_TOKEN
+   /* also acceptable:
+      token: 'MY_OAUTH_TOKEN'
+    */
 });
+
+var AlexWillenbrink = github.getUser('Alex-Willenbrink');
+
+let Repos = new Promise ((resolve, reject)=> {
+    AlexWillenbrink.listStarredRepos(function(err, repos) {
+    if (err) {reject(err)};
+    resolve(repos);
+    })
+});
+
+Repos.then(repos => {
+    console.log(repos)
+})
+
+// var me = github.getUser(); // no user specified defaults to the user for whom credentials were provided 
+// me.listNotifications(function(err, notifications) {
+//    // do some stuff 
+// });
+ 
+
 
 // synchronous - don't worry about it
 
-github.authenticate({type: "token", token: process.env.GITHUB_TOKEN});
+// github.authenticate({type: "token", token: process.env.GITHUB_TOKEN});
 
-let starredRepos = [];
+// let starredRepos = [];
 
-var req = github.activity.getStarredRepos({ per_page: 100}, getRepos);
-function getRepos(err, res) {
-    if (err) {
-        return false;
-    }
+// var req = github.activity.getStarredRepos({ per_page: 100}, getRepos);
+// function getRepos(err, res) {
+//     if (err) {
+//         return false;
+//     }
 
-    starredRepos = starredRepos.concat(res['data']);
-    if (github.hasNextPage(res)) {
-        github.getNextPage(res, getRepos)
-    } else {
-      console.log("made it here");
-        outputStarredRepos();
-    }
-}
+//     starredRepos = starredRepos.concat(res['data']);
+//     if (github.hasNextPage(res)) {
+//         github.getNextPage(res, getRepos)
+//     } else {
+//       console.log("made it here");
+//         outputStarredRepos();
+//     }
+// }
 
-function outputStarredRepos() {
-    console.log(starredRepos.map(function(repo) { return repo['full_name']; }));
-    console.log('starred repos: ' + starredRepos.length);
-}
+// function outputStarredRepos() {
+//     console.log(starredRepos.map(function(repo) { return repo['full_name']; }));
+//     console.log('starred repos: ' + starredRepos.length);
+// }
