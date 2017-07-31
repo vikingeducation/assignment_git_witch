@@ -1,9 +1,23 @@
-module.exports = {};
+const Github = require("./Github");
 
-// Github.getRepos(username);
+class CommandRunner {
+	constructor(options) {
+		this.runner = options.runner;
+		this.gitHub = options.gitHub;
+	}
 
-// Github.countRepos(username);
+	run(options) {
+		let commandCombos = {
+			"details-repos": this.gitHub.getRepos,
+			"count-repos": this.gitHub.countRepos,
+			"details-starred repos": this.gitHub.getStarred,
+			"count-starred repos": this.gitHub.countStarred
+		};
 
-// Github.getStarred(username);
+		return commandCombos[options.query + "-" + options.subject](
+			options.username
+		);
+	}
+}
 
-// Github.countStarred(username);
+module.exports = CommandRunner;

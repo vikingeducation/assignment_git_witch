@@ -33,7 +33,7 @@ describe("CommandRunner", () => {
     };
     this.commandRunner.run(options).then(output => {
       expect(this.gitHub.getRepos).toHaveBeenCalledWith("Brunhilda");
-      expect(output).toEqual(this.output);
+      expect(output).toEqual(this.response);
       done();
     });
   });
@@ -45,7 +45,7 @@ describe("CommandRunner", () => {
     };
     this.commandRunner.run(options).then(output => {
       expect(this.gitHub.countRepos).toHaveBeenCalledWith("Brunhilda");
-      expect(output).toEqual(this.output);
+      expect(output).toEqual(this.response);
       done();
     });
   });
@@ -57,8 +57,8 @@ describe("CommandRunner", () => {
       username: "Brunhilda"
     };
     this.commandRunner.run(options).then(output => {
-      expect(this.gitHub.starredRepos).toHaveBeenCalledWith("Brunhilda");
-      expect(output).toEqual(this.output);
+      expect(this.gitHub.getStarred).toHaveBeenCalledWith("Brunhilda");
+      expect(output).toEqual(this.response);
       done();
     });
   });
@@ -71,7 +71,7 @@ describe("CommandRunner", () => {
     };
     this.commandRunner.run(options).then(output => {
       expect(this.gitHub.countStarred).toHaveBeenCalledWith("Brunhilda");
-      expect(output).toEqual(this.output);
+      expect(output).toEqual(this.response);
       done();
     });
   });
