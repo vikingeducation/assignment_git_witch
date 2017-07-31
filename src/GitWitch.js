@@ -9,8 +9,12 @@ class GitWitch {
     return new Promise((resolve, reject) => {
       let command = this.parser.parse(input);
       let response = this.runner.run(command);
-      let output = this.formatter.format(response);
-      resolve(output);
+      response.then(output => {
+        resolve(this.formatter.format(output));
+      });
+      // console.log(
+      //   `Command: ${command}, Response: ${response}, Output: ${output}`
+      // );
     });
   }
 }
