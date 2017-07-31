@@ -1,9 +1,9 @@
 module.exports = {};
 
-Github.getRepos(username);
+// Github.getRepos(username);
 
-Github.countRepos(username);
+// Github.countRepos(username);
 
-Github.getStarred(username);
+// Github.getStarred(username);
 
-Github.countStarred(username);
+// Github.countStarred(username);
