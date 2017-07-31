@@ -1,41 +1,37 @@
 class QuestionParser {
   constructor() {
+    this.commandObj = {};
     this.parse = input => {
-      let command = {};
-      let subject;
+      let command;
       let inputArray = input.split(" ");
-      switch (inputArray[0]) {
-        case "how":
-          command.query = "count";
-          subject = inputArray[2];
-          break;
-        case "what":
-          command.query = "details";
-          subject = inputArray[1];
-          break;
+      command = this.getQuery(inputArray);
+      command = this.getSubject(command);
+      this.getUsername(command);
+      return this.commandObj;
+    };
+
+    this.getQuery = inputArray => {
+      if (inputArray[0] === "how") {
+        this.commandObj.query = "count";
+        return inputArray.slice(2);
+      } else {
+        this.commandObj.query = "details";
+        return inputArray.slice(1);
       }
-      switch (subject) {
-        case "starred":
-          command.subject = "starred repos";
-          subject = inputArray[2];
-          break;
-        case "repos":
-          command.subject = "repos";
-          subject = inputArray[1];
-          break;
+    };
+
+    this.getSubject = command => {
+      if (command[0] === "starred") {
+        this.commandObj.subject = "starred repos";
+        return command.slice(3);
+      } else {
+        this.commandObj.subject = "repos";
+        return command.slice(2);
       }
-      switch (command.query.concat(subject)) {
-        case "countstarred":
-          command.username = inputArray[5];
-          break;
-        case "countrepos" || "whatstarred":
-          command.username = inputArray[4];
-          break;
-        case "detailsrepos":
-          command.username = inputArray[3];
-          break;
-      }
-      return command;
+    };
+
+    this.getUsername = command => {
+      this.commandObj.username = command[0];
     };
   }
 }
