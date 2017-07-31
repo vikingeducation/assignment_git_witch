@@ -36,16 +36,6 @@ class QuestionParser {
   }
 }
 
+module.exports = QuestionParser
 
 
-
-
-
-
-
-
-
-
-
-
-module.exports =
