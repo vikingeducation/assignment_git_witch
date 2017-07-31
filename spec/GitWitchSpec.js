@@ -10,7 +10,7 @@ describe('GitWitch', () => {
 		this.runner = new CommandRunner();
 		this.formatter = new ResponseFormatter();
 
-		this.command = this.parser.parse('how many repos does griselda have?');
+		this.command = this.parser.parse('what repos does griselda have?');
 		this.response = this.runner.run(this.command);
 		this.output = this.formatter.format(this.response);
 
