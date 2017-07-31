@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/drewdiddy611/assignment_git_witch#readme",
   "dependencies": {
+    "github": "^9.2.0",
     "jasmine": "^2.7.0",
     "jasmine-node": "^1.14.5"
   }
