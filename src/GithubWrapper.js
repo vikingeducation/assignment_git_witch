@@ -1,11 +1,10 @@
 require('dotenv').config();
 const Github = require('github-api');
-// var Promise = require("bluebird");
-// var listStarredRepos = Promise.promisify(Github.listStarredRepos);
-
 
 const github = new Github({
-   token: process.env.GITHUB_TOKEN
+  username: "Alex-Willenbrink",
+  oauth_token: process.env.GITHUB_TOKEN,
+  protocol: "https"
    /* also acceptable:
       token: 'MY_OAUTH_TOKEN'
     */
@@ -15,7 +14,10 @@ var AlexWillenbrink = github.getUser('Alex-Willenbrink');
 
 let Repos = new Promise ((resolve, reject)=> {
     AlexWillenbrink.listStarredRepos(function(err, repos) {
-    if (err) {reject(err)};
+    if (err) {
+      console.log(err);
+      reject(err)
+    };
     resolve(repos);
     })
 });
@@ -24,11 +26,11 @@ Repos.then(repos => {
     console.log(repos)
 })
 
-// var me = github.getUser(); // no user specified defaults to the user for whom credentials were provided 
+// var me = github.getUser(); // no user specified defaults to the user for whom credentials were provided
 // me.listNotifications(function(err, notifications) {
-//    // do some stuff 
+//    // do some stuff
 // });
- 
+
 
 
 // synchronous - don't worry about it
