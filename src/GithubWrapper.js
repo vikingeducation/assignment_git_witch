@@ -2,7 +2,7 @@ require('dotenv').config();
 const Github = require('github-api');
 
 const github = new Github({
-  username: "Alex-Willenbrink",
+  // username: "Alex-Willenbrink",
   oauth_token: process.env.GITHUB_TOKEN,
   protocol: "https"
    /* also acceptable:
@@ -10,9 +10,29 @@ const github = new Github({
     */
 });
 
+
+
+class GithubWrapper {
+  constructor() {}
+
+  // make an instance of github
+  // pass the username through createGithubUser
+  // pass it through starredrepos or repos
+
+  createGithubUser(github, username) {
+    return github.getUser(`${username}`)
+  }
+
+  getRepoInfo(github, query) {
+    if(query === "")
+  }
+
+
+}
+
 var AlexWillenbrink = github.getUser('Alex-Willenbrink');
 
-let Repos = new Promise ((resolve, reject)=> {
+let repos = new Promise ((resolve, reject) => {
     AlexWillenbrink.listStarredRepos(function(err, repos) {
     if (err) {
       console.log(err);
@@ -22,9 +42,23 @@ let Repos = new Promise ((resolve, reject)=> {
     })
 });
 
-Repos.then(repos => {
-    console.log(repos)
+repos.then(repos => {
+  console.log(repos);
 })
+
+// new Promise ((resolve, reject) => {
+//     AlexWillenbrink.listRepos(function(err, repos) {
+//     if (err) {
+//       console.log(err);
+//       reject(err)
+//     };
+//     resolve(repos);
+//     })
+// });
+
+
+
+
 
 // var me = github.getUser(); // no user specified defaults to the user for whom credentials were provided
 // me.listNotifications(function(err, notifications) {
