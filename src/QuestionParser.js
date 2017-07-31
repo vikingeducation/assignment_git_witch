@@ -20,22 +20,19 @@ class QuestionParser {
     let question = input.split(" ")[0].toLowerCase();
     if(question === "how") {
       return "count";
-    } else if(question === "what") {
-      return "details";
-    } else {
-      return "error";
     }
+
+    if(question === "what") {
+      return "details";
+    }
+
+    return "error";
+
   }
 
   getSubject(input) {
-    if(input.split(" ").includes("starred")) {
-      return "starred repos";
-    } else {
-      return "repos";
-    }
+    return input.split(" ").includes("starred") ? "starred repos" : "repos";
   }
 }
 
 module.exports = QuestionParser
-
-
