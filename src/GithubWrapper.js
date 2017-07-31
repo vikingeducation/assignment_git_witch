@@ -10,8 +10,6 @@ const github = new Github({
     */
 });
 
-
-
 class GithubWrapper {
   constructor() {}
 
@@ -23,72 +21,28 @@ class GithubWrapper {
     return github.getUser(`${username}`)
   }
 
-  getRepoInfo(github, query) {
-    if(query === "")
-  }
-
-
-}
-
-var AlexWillenbrink = github.getUser('Alex-Willenbrink');
-
-let repos = new Promise ((resolve, reject) => {
-    AlexWillenbrink.listStarredRepos(function(err, repos) {
+  getRepoType(githubUser, query) {
+    if(subject === "starred repos"){
+        return new Promise ((resolve, reject) => {
+    githubUser.listStarredRepos(function(err, repos) {
     if (err) {
       console.log(err);
       reject(err)
     };
     resolve(repos);
     })
-});
-
-repos.then(repos => {
-  console.log(repos);
-})
-
-// new Promise ((resolve, reject) => {
-//     AlexWillenbrink.listRepos(function(err, repos) {
-//     if (err) {
-//       console.log(err);
-//       reject(err)
-//     };
-//     resolve(repos);
-//     })
-// });
-
-
-
-
-
-// var me = github.getUser(); // no user specified defaults to the user for whom credentials were provided
-// me.listNotifications(function(err, notifications) {
-//    // do some stuff
-// });
-
-
-
-// synchronous - don't worry about it
-
-// github.authenticate({type: "token", token: process.env.GITHUB_TOKEN});
-
-// let starredRepos = [];
-
-// var req = github.activity.getStarredRepos({ per_page: 100}, getRepos);
-// function getRepos(err, res) {
-//     if (err) {
-//         return false;
-//     }
-
-//     starredRepos = starredRepos.concat(res['data']);
-//     if (github.hasNextPage(res)) {
-//         github.getNextPage(res, getRepos)
-//     } else {
-//       console.log("made it here");
-//         outputStarredRepos();
-//     }
-// }
-
-// function outputStarredRepos() {
-//     console.log(starredRepos.map(function(repo) { return repo['full_name']; }));
-//     console.log('starred repos: ' + starredRepos.length);
-// }
+    }
+  }
+  if (subject === "repos") {
+    return new Promise ((resolve, reject) => {
+    githubUser.listRepos(function(err, repos) {
+    if (err) {
+      console.log(err);
+      reject(err)
+    };
+    resolve(repos);
+    })
+    }
+  }
+}
+module.exports = GithubWrapper;
