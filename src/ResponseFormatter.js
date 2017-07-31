@@ -1,7 +1,9 @@
 class ResponseFormatter() {
-  format(){
-
-
+  constructor() {
+  
+  }
+  format(response){
+    console.log(response)
 
   }
 }
