@@ -1,6 +1,6 @@
 const GitWitch = require("../src/GitWitch");
 
-describe("GitWitch", () => {
+xdescribe("GitWitch", () => {
   beforeEach(() => {
     this.parser = { parse() {} };
     this.runner = { run() {} };
