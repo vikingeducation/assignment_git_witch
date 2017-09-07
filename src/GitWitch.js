@@ -11,10 +11,8 @@ const GitWitch = function () {
           reject(results);
         }
         else {
-          resolve ( this.parser(input) );
+          resolve ( this.runner(results) );
         }
-      }).then ( (result) => {
-        return ( this.runner(result) );
       }).then ( (result) => {
         return result.results.then( (res)=> {
           result.results = res;
