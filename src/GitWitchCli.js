@@ -5,7 +5,7 @@ const GitWitchCli = function () {
     process: function () {
       const input = process.argv[2];
       GitWitch.process(input).then( (output) => {
-        console.log(output);
+        console.log(output.formattedResult);
       }).catch( (output)=> {
         console.log(output);
       });

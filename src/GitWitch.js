@@ -16,7 +16,10 @@ const GitWitch = function () {
       }).then ( (result) => {
         return ( this.runner(result) );
       }).then ( (result) => {
-        return( this.formatter(result) );
+        return result.results.then( (res)=> {
+          result.results = res;
+          return(this.formatter(result));
+        })
       }))
     },
     parser: function (input) {

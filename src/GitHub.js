@@ -2,7 +2,7 @@ const request = require('request');
 
 const options = function (username) {
   const optionsObject = {
-    url: `https://api.github.com/users/${username}/repos`,
+    url: `https://api.github.com/users/${username}/repos?per_page=100`,
     qs: {
       type: 'all',
       sort: 'full_name',
