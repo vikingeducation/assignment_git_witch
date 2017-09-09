@@ -12,11 +12,11 @@ ResponseFormatter.prototype.format = response => {
   if (response.query === 'count') {
     let repoCount = response.result.length;
     formattedResponse =
-      'the user ' + response.username + ' has ' + repoCount + ' ' + repoType;
+      response.username + ' has ' + repoCount + ' ' + repoType;
   } else if (response.query === 'details') {
     formattedResponse = response.username + `'s ` + repoType + '\n';
     response.result.forEach(repo => {
-      console.log(repo);
+      // console.log(repo);
       formattedResponse =
         formattedResponse + repo.name + ' - ' + repo.description + '\n';
     });

@@ -16,7 +16,7 @@ describe('ResponseFormatter', () => {
           { name: 'second repo', description: 'another test repo' }
         ]
       };
-      const expectedResponse = `the user griselda has 2 public repos`;
+      const expectedResponse = `griselda has 2 public repos`;
       let formattedResponse = this.formatter.format(response);
       expect(formattedResponse).toEqual(expectedResponse);
     });
