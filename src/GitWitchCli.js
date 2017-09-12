@@ -19,4 +19,6 @@ const GitWitchCli = function() {
   return gitWitchCli;
 };
 
+GitWitchCli().process();
+
 module.exports = GitWitchCli;
