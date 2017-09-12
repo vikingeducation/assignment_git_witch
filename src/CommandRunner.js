@@ -1,12 +1,12 @@
-const gitHub = require('../src/GitHub')();
+const gitHub = require("../src/GitHub")();
 
-const CommandRunner = function () {
+const CommandRunner = function() {
   const commandRunner = {
-    run: function (user) {
+    run: function(user) {
       return gitHub.getRepos(user);
     }
-  }
+  };
   return commandRunner;
-}
+};
 
 module.exports = CommandRunner;
