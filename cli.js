@@ -5,4 +5,5 @@ const gitwitch = new Gitwitch();
 var inputArgv = process.argv.slice(2).join(" ");
 console.log(inputArgv);
 
-gitwitch.process(inputArgv);
+//log result of entire application
+console.log(await gitwitch.process(inputArgv));
