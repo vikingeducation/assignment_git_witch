@@ -1,11 +1,19 @@
 const QuestionParser = require("./QuestionParser");
 const qp = new QuestionParser();
-//const cr = new CommandRunner();
+
+const CommandRunner = require("./commandrunner");
+const cr = new CommandRunner();
 
 class Gitwitch {
-	process(inputArgv) {
-		let parsedObject = qp.parse(inputArgv);
-		//let dirtyApiObject = cr.run(parsedObject);
+	constructor() {
+		this.qp = qp;
+		this.cr = cr;
+	}
+
+	async process(inputArgv) {
+		let parsedObject = this.qp.parse(inputArgv);
+		let dirtyApiObject = await this.cr.run(parsedObject);
+		console.log(dirtyApiObject);
 	}
 }
 

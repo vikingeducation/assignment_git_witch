@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/coelacanth7/assignment_git_witch/issues"
   },
-  "homepage": "https://github.com/coelacanth7/assignment_git_witch#readme"
+  "homepage": "https://github.com/coelacanth7/assignment_git_witch#readme",
+  "dependencies": {
+    "github": "^11.0.0"
+  }
 }
