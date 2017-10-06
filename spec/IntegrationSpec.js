@@ -10,7 +10,7 @@ Eye-Of-Newt - EON is a new frontend framework written in pure spaghetti code.
 `;
 
 		exec(
-			"node ./src/GitWitchCli.js what repos does griselde have?",
+			"node ./cli.js what repos does griselde have?",
 			(error, stdout, stderr) => {
 				if (error) {
 					console.error(`exec error: ${error}`);
@@ -27,7 +27,7 @@ Eye-Of-Newt - EON is a new frontend framework written in pure spaghetti code.
 `;
 
 		exec(
-			"node ./src/GitWitchCli.js how many repos does griselde have?",
+			"node ./cli.js how many repos does griselde have?",
 			(error, stdout, stderr) => {
 				if (error) {
 					console.error(`exec error: ${error}`);
