@@ -6,6 +6,7 @@ describe("An Integration Test", () => {
 griselde's public repos:
 Code-Coven - A version control system for weird sisters
 Eye-Of-Newt - EON is a new frontend framework written in pure spaghetti code.
+
 `;
 
     exec(
@@ -22,7 +23,8 @@ Eye-Of-Newt - EON is a new frontend framework written in pure spaghetti code.
   });
 
   it("works for counts", done => {
-    const expectedOutput = `griselde has 2 public repos`;
+    const expectedOutput = `griselde has 2 public repos
+`;
 
     exec(
       "node ./src/GitWitchCli.js how many repos does griselde have?",
