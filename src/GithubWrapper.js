@@ -1,12 +1,20 @@
 const http = require('http');
 const request = require('request');
+require('dotenv').config();
 
 class Github {
-  getRepoInfo(username, subject) {
+  constructor(token) {
+    this.token = token;
+  }
+
+  getRepoInfo(parserResults) {
     return new Promise((resolve, reject) => {
       var reqestObject = {
-        url: `https://api.github.com/users/${ username }/${ subject }`,
-        headers: { 'User-Agent': 'Viking' }
+        url: `https://api.github.com/users/${ parserResults.username }/${ parserResults.subject }`,
+        headers: {
+          'User-Agent': 'Viking',
+          'Authorization': `token ${ this.token }`
+        }
       };
 
       request.get(reqestObject, (err, res, body) => {
@@ -21,7 +29,8 @@ class Github {
               results.push({ name: repo.name, description: repo.description });
             }
 
-            resolve(results);
+            parserResults.repos = results;
+            resolve(parserResults);
           } else {
             reject(res.body);
           }
@@ -32,9 +41,5 @@ class Github {
     });
   }
 }
-
-var github = new Github();
-
-github.getRepoInfo('octocat', 'repos');
 
 module.exports = Github;

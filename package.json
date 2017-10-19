@@ -2,8 +2,9 @@
   "name": "assignment_git_witch",
   "version": "1.0.0",
   "description": "A command line natural language-ish GitHub querying machine, written test-first with modularity in mind.",
-  "main": "GitWitchCli.js",
+  "main": "./src/GitWitchCli.js",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "request": "^2.83.0"
   },
   "devDependencies": {},
@@ -19,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/vikingeducation/assignment_git_witch/issues"
   },
+ "bin": {
+   "gitwitch": "./src/GitWitchCli.js"
+ },
   "homepage": "https://github.com/vikingeducation/assignment_git_witch#readme"
 }
