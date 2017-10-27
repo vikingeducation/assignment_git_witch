@@ -3,48 +3,34 @@ const CommandRunner = require('../src/CommandRunner');
 describe("Command Runner", () => {
 
   beforeEach(() => {
-    this.runner = { run() {} };
-
     this.gitHub = {
-      getRepos() {},
-      countRepos() {},
-      getStarredRepos() {},
-      countStarredRepos() {}
+      getRepos: () => {},
+      getStarredRepos: () =>  {}
     };
 
-    let sampleGitResponse = [
-      {name: 'repo one', description: 'repo description one'},
-      {name: 'repo two', description: 'repo description two'}
-    ];
+    this.repoList = "repo list";
+    this.starredList = "starred repo list";
+    
+    spyOn(this.gitHub, "getRepos").andReturn(Promise.resolve(this.repoList));
+    spyOn(this.gitHub, "getStarredRepos").andReturn(Promise.resolve(this.starredList));
 
-    let sampleStarredResponse = [
-      {name: 'starred repo one', description: 'repo description one'},
-      {name: 'starred repo two', description: 'repo description two'},
-      {name: 'starred repo three', description: 'repo description three'}
-    ];
+    this.gitHub.getRepos('griselda');
+    this.gitHub.getStarredRepos('griselda');
 
-    spyOn(this.gitHub, "getRepos").andReturn(Promise.resolve(sampleGitResponse));
-    spyOn(this.gitHub, "countRepos").andReturn(Promise.resolve(sampleGitResponse.length));
-    spyOn(this.gitHub, "getStarredRepos").andReturn(Promise.resolve(sampleStarredResponse));
-    spyOn(this.gitHub, "countStarredRepos").andReturn(Promise.resolve(sampleStarredResponse.length));
-
-    this.commandRunner = new CommandRunner({
-      runner: this.runner,
-      gitHub: this.gitHub
-    });
+    this.commandRunner = new CommandRunner(this.gitHub);
   });
 
   it("gets list of repo details", done => {
     let command = {
       query: "details",
       subject: "repos",
-      username: "test"
+      username: "griselda"
     };
     this.commandRunner.run(command).then(output => {
-      expect(this.gitHub.getRepos).toHaveBeenCalledWith("test");
-      expect(output).toEqual([
-        {name: 'repo one', description: 'repo description one'},
-        {name: 'repo two', description: 'repo description two'}
+      expect(this.gitHub.getRepos).toHaveBeenCalled();
+      expect(output.result).toEqual([
+        {name: 'Code-Coven', description: 'A version control system for weird sisters'},
+        {name: 'Eye-Of-Newt', description: 'EON is a new frontend framework written in pure spaghetti code.'}
       ]);
       done();
     });
@@ -53,11 +39,11 @@ describe("Command Runner", () => {
     let command = {
       query: "count",
       subject: "repos",
-      username: "test"
+      username: "griselda"
     };
     this.commandRunner.run(command).then(output => {
-      expect(this.gitHub.countRepos).toHaveBeenCalledWith("test");
-      expect(output).toEqual(2);
+      expect(this.gitHub.getRepos).toHaveBeenCalledWith(command.username);
+      expect(output.result).toEqual(2);
       done();
     });
   });
@@ -66,14 +52,12 @@ describe("Command Runner", () => {
     let command = {
       query: "details",
       subject: "starred repos",
-      username: "test"
+      username: "griselda"
     };
     this.commandRunner.run(command).then(output => {
-      expect(this.gitHub.getStarredRepos).toHaveBeenCalledWith("test");
-      expect(output).toEqual([
-        {name: 'starred repo one', description: 'repo description one'},
-        {name: 'starred repo two', description: 'repo description two'},
-        {name: 'starred repo three', description: 'repo description three'}
+      expect(this.gitHub.getStarredRepos).toHaveBeenCalled();
+      expect(output.result).toEqual([
+        {name: 'Mocking-Birds', description: 'An application for the asynchronous ornithologist'}
       ]);
       done();
     });
@@ -83,11 +67,11 @@ describe("Command Runner", () => {
     let command = {
       query: "count",
       subject: "starred repos",
-      username: "test"
+      username: "griselda"
     };
     this.commandRunner.run(command).then(output => {
-      expect(this.gitHub.countStarredRepos).toHaveBeenCalledWith("test");
-      expect(output).toEqual(3);
+      expect(this.gitHub.getStarredRepos).toHaveBeenCalledWith(command.username);
+      expect(output.result).toEqual(1);
       done();
     });
   });

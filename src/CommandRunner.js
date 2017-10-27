@@ -1,21 +1,22 @@
+const GitHub = require('./GitHub');
+
 class CommandRunner {
 
-  constructor(command) {
-    this.runner = command.runner;
-    this.gitHub = command.gitHub;
+  constructor() {
+    this.gitHub = new GitHub();
   }
 
-  run(command) {
+  async run(command) {
+    const actions = {
+      [['details', 'repos']]: this.gitHub.getRepos,
+      [['details', 'starred repos']]: this.gitHub.getStarredRepos,
+      [['count', 'repos']]: (username) => this.gitHub.getRepos(username).length,
+      [['count', 'starred repos']]: (username) => this.gitHub.getStarredRepos(username).length
+    }
 
-    if ((command.query === 'details') && (command.subject === 'repos'))
-      return this.gitHub.getRepos(command.username);
-    else if ((command.query === 'count') && (command.subject === 'repos'))
-      return this.gitHub.countRepos(command.username);
-    else if ((command.query === 'details') && (command.subject === 'starred repos')) 
-      return this.gitHub.getStarredRepos(command.username);
-    else if ((command.query === 'count') && (command.subject === 'starred repos'))
-      return this.gitHub.countStarredRepos(command.username);
+    command.result = await actions[[command.query, command.subject]](command.username)
   
+    return command;
   }
 }
 
