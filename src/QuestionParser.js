@@ -18,9 +18,9 @@ class QuestionParser {
     }
 
     return {
-      username: username,
-      subject: subject,
-      query: query
+      username,
+      subject,
+      query
     };
   }
 }

@@ -1,14 +1,25 @@
-class ResponseFormatter {
+const ResponseFormatter = require('../src/ResponseFormatter.js');
 
+describe('ResponseFormatter', () => {
 
-//the user griselda has 2 public repos
+  beforeEach(() => {
+    this.validInput = {
+      username: 'User',
+      subject: 'details',
+      query: 'repos',
+      repos: [
+        { name: 'First Repo', description: 'The first one' },
+        { name: 'Second Repo', description: 'The second one' }
+      ]
+    };
+    this.responseFormatter = new ResponseFormatter();
+  });
 
-  format(returnObj){
-      if (returnObj.subject === 'count'){
-        let responce = `the user ${returnObj.name} has ${returnObj.repos.length} ${returnObj.query}`
-  } else if (returnObj.subject === 'details') {
+  it('returns a string', () => {
+    expect(typeof this.responseFormatter.format(this.validInput)).toEqual('string');
+  });
 
-  }
-
-
-}
+  it('returns the right string', () => {
+    expect(this.responseFormatter.format(this.validInput)).toEqual("User's repos:\nname: First Repo description: The first one\nname: Second Repo description: The second one");
+  })
+})
