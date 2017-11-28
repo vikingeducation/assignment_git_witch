@@ -22,8 +22,8 @@ gitWrapper.getRepos = user => {
 		github.repos
 			.getAll({})
 			.then(result => {
-				console.log('this is the result: ' + JSON.stringify(result, null, 2));
-				resolve(result);
+				console.log('this is the result: ' + result.data[0]);
+				resolve(result.data[0]);
 			})
 			.catch(err => {
 				console.log('this is the err: ' + err);
@@ -32,6 +32,24 @@ gitWrapper.getRepos = user => {
 	});
 };
 
-gitWrapper.getRepos('johnrpb');
+gitWrapper.getStarredRepos = user => {
+	return new Promise((resolve, reject) => {
+		github.activity
+			.getStarredRepos({})
+			.then(result => {
+				let finalResult = result.data.map(repoObj => repoObj.repo.name);
+				console.log('These are the starred repos: ' + finalResult);
+				resolve(finalResult);
+			})
+			.catch(err => {
+				console.log('this is the error: ' + err);
+				reject(err);
+			});
+	});
+};
+
+gitWrapper.getStarredRepos('fabpot');
+
+//gitWrapper.getRepos('johnrpb');
 
 module.exports = gitWrapper;
