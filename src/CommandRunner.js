@@ -5,8 +5,8 @@ class CommandRunner {
   run(parserObject) {
     let baseUrl = "https://api.github.com/users/";
 
-    let url = `${baseUrl}${parserObject.username}${
-      parserObject.query.split(" ")[0]
+    let url = `${baseUrl}${parserObject.username}/${
+      parserObject.subject.split(" ")[0]
     }`;
 
     let options = {
