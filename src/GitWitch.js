@@ -5,34 +5,22 @@ const CLI = require('./cli.js');
 const responseFormatter = require('./response_formatter.js');
 
 class GitWitch {
-  constructor(parser, runner, formatter) {
-    this.parser = {
-      parse(string) {
-        return questionParser.parser(command);
-      }
-    };
-    this.runner = {
-      run(command) {
-        return commandRunner.runner(response);
-      }
-    };
-    this.formatter = {
-      format(response) {
-        return responseFormatter.formatter;
-      }
-    };
+  constructor(obj) {
+    this.parser = obj.parser;
+    this.runner = obj.runner;
+    this.formatter = obj.formatter;
   }
 
   process(input) {
     let start = input => {
       return new Promise((resolve, reject) => {
-        resolve(this.parser.parse(input));
+        return resolve(this.parser.parse(input));
       });
     };
     return start(input)
       .then(command => this.runner.run(command))
       .then(response => this.formatter.format(response))
-      .catch(console.log('Error!'));
+      .catch(err => console.log(err));
   }
 }
 
