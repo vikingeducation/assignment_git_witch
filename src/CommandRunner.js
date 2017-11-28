@@ -5,12 +5,13 @@ class CommandRunner {
   run(parserObject) {
     let baseUrl = "https://api.github.com/users/";
 
-    let url =
-      baseUrl + parserObject.username + parserObject.query.split(" ")[0];
+    let url = `${baseUrl}${parserObject.username}${
+      parserObject.query.split(" ")[0]
+    }`;
 
     let options = {
       username: process.env.ACCESS_KEY,
-      url: url,
+      url,
       Accept: "application/vnd.github.v3+json",
       headers: {
         "User-agent": "GitWitch application "
@@ -18,21 +19,13 @@ class CommandRunner {
     };
 
     return new Promise((resolve, reject) => {
-      request.get(options, function(err, response, body) {
+      request.get(options, (err, response, body) => {
         if (err) {
-          throw err;
+          reject(err);
         }
 
-        body = JSON.parse(body);
-        let returnObj;
-
-        returnObj.username = parserObject.username;
-        returnObj.subject = parserObject.subject;
-        returnObj.query = parserObject.query;
-        returnObj.repos = [];
-
-        body.forEach(repo => {
-          returnObj.repos.push(repo);
+        let returnObj = Object.assign({}, parserObject, {
+          repos: JSON.parse(body)
         });
 
         resolve(returnObj);

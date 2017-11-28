@@ -26,7 +26,7 @@ describe("CommandRunner", () => {
       done();
     });
 
-    it("returns error for starred repos for invalid user", done => {
+    it("checks if returned repos includes a specific repo", done => {
       this.commandRunner.run(this.validInput).then(returnObj => {
         expect(
           returnObj.repos.find(obj => {

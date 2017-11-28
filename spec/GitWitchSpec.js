@@ -23,6 +23,7 @@ describe("GitWitch", () => {
 
   it("processes a question and returns a formatted response", done => {
     const input = "how many repos does griselda have?";
+    console.log(this.witch.process(input));
     this.witch.process(input).then(output => {
       expect(this.parser.parse).toHaveBeenCalledWith(input);
       expect(this.runner.run).toHaveBeenCalledWith(this.command);
