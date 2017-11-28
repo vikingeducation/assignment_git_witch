@@ -5,32 +5,33 @@ let env = require('dotenv').config();
 let gitWrapper = {};
 
 github.authenticate({
-    type: 'token',
-    token: process.env.GITHUB_API_TOKEN
+	type: 'token',
+	token: process.env.GITHUB_API_TOKEN
 });
 
 gitWrapper.getCommits = (user, repo) => {
-  return github.repos.getCommits({
-    owner: user,
-    repo: repo,
-    sha: 'master',
-  });
+	return github.repos.getCommits({
+		owner: user,
+		repo: repo,
+		sha: 'master'
+	});
 };
 
-gitWrapper.getRepos = (user) => {
-  
+gitWrapper.getRepos = user => {
+	return new Promise((resolve, reject) => {
+		github.repos
+			.getAll({})
+			.then(result => {
+				console.log('this is the result: ' + JSON.stringify(result, null, 2));
+				resolve(result);
+			})
+			.catch(err => {
+				console.log('this is the err: ' + err);
+				reject(err);
+			});
+	});
 };
 
-gitWrapper
-  .getCommits('JohnRPB', 'assignment_express_portfolio')
-  .then(onfulfilled => {
-    console.log(process.env.HAI_KEY);
-    console.log(onfulfilled.data);
-  })
-  .catch(onRejected => {
-    console.log(onRejected);
-  });
+gitWrapper.getRepos('johnrpb');
 
 module.exports = gitWrapper;
-
-
