@@ -1,17 +1,19 @@
-const GitHub = require('./src/GitHub')
+const caller = require("./github");
 
+class CommandRunner {
+  constructor() {}
 
-const CommandRunner{
-  constructor(){}
-  run = (obj){
-    let responseObj = obj;
-    GitHub(obj.query, obj.subject, obj.userName)
-    if(obj.query === 'detials'){
-      responseObj.result = [] //list of objects returned from api
-    }
-    if(obj.subject === 'repos'){
-      responseObj.result = [] //array of repo objects
-    }
-    return responseObj;
+  run(obj) {
+    return caller(obj.username, obj.subject).then(result => {
+      let responseObj = { result, ...obj };
+      if (obj.query === "count") {
+        console.log(responseObj);
+        responseObj.result = responseObj.result.length; //array of repo objects
+      }
+      return responseObj;
+    });
   }
 }
+
+let runs = new CommandRunner();
+runs.run({ username: "Seeker0", query: "count", subject: "repos" });
