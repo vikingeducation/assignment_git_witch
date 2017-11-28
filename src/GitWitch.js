@@ -7,12 +7,11 @@ class GitWitch {
 		this.runner = obj.runner;
 		this.formatter = obj.formatter;
 	}
-	process(input) {
-		let parsedInput = this.parser.parse(input);
-		let nextInput = this.runner.run(parsedInput);
-		let final = this.formatter.format(nextInput);
-		return Promise.resolve(final);
-	}
+  process(str) {
+    const parsed = this.parser.parse(str);
+    return this.runner.run(parsed)
+      .then(result => this.formatter.format(result));
+  }
 }
 
 module.exports = GitWitch;
