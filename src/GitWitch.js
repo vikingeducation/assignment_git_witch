@@ -8,11 +8,13 @@ const GitWitch = function(params) {
       return new Promise((resolve, reject) => {
         this.command = this.parser.parse(input);
         this.response = this.runner.run(this.command);
-        this.response.then(result => {
-          this.output = this.formatter.format(result);
+        this.response
+          .then(result => {
+            this.output = this.formatter.format(result);
 
-          resolve(this.output);
-        });
+            resolve(this.output);
+          })
+          .catch(err => reject(this.formatter.format(err)));
       });
     },
 
