@@ -29,7 +29,7 @@ describe("QuestionParser", () => {
     it("parses starred repo subjects", () => {
       const question = "what starred repos does griselda have?";
       const command = this.parser.parse(question);
-      expect(command.subject).toEqual("starred repos");
+      expect(command.subject).toEqual("starred");
     });
   });
 
